@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ARKit Webpage Example</title>
+    <style>
+        #canvas {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        function loadModel() {
+            const canvas = document.getElementById('canvas');
+            const usdzPath = 'arfile.usdz'; // Replace with the path to your USDZ model
+            
+            const anchor = document.createElement('a');
+            anchor.setAttribute('rel', 'ar');
+            anchor.setAttribute('href', usdzPath);
+            anchor.setAttribute('title', 'View in AR');
+            anchor.innerText = 'View in AR';
+            
+            const container = document.createElement('div');
+            container.appendChild(anchor);
+            
+            const unsupportedText = document.createElement('p');
+            unsupportedText.innerText = 'AR Quick Look is not supported on this device.';
+            container.appendChild(unsupportedText);
+            
+            canvas.appendChild(container);
+        }
+        
+        // Check if AR Quick Look is supported
+        if ('rel' in HTMLAnchorElement.prototype && 'ar' in HTMLLinkElement.prototype) {
+            loadModel();
+        } else {
+            const canvas = document.getElementById('canvas');
+            const unsupportedText = document.createElement('p');
+            unsupportedText.innerText = 'AR Quick Look is not supported on this device.';
+            canvas.appendChild(unsupportedText);
+        }
+    </script>
+</body>
+</html>
